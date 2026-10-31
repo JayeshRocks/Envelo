@@ -43,7 +43,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({
 
         <button
           onClick={onOpenExportModal}
-          className="px-3 py-1.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-xs text-neutral-300 border border-white/10 flex items-center space-x-1.5 transition self-start sm:self-auto"
+          className="px-3.5 py-2 sm:py-1.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-xs sm:text-sm text-neutral-300 border border-white/10 flex items-center space-x-1.5 transition self-start sm:self-auto active:scale-95 min-h-[44px] sm:min-h-[38px]"
         >
           <Download className="w-3.5 h-3.5 text-sky-400" />
           <span>Export Data</span>

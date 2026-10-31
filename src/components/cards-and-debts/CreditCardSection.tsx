@@ -96,11 +96,11 @@ export const CreditCardSection: React.FC<CreditCardSectionProps> = ({
           </p>
         </div>
 
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
           {cards.length > 0 && accounts.length > 0 && (
             <button
               onClick={() => handleOpenPayment()}
-              className="px-3 py-1.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-xs text-sky-400 border border-sky-500/20 font-medium flex items-center space-x-1.5 transition"
+              className="px-3.5 py-2 sm:py-1.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-xs sm:text-sm text-sky-400 border border-sky-500/20 font-medium flex items-center space-x-1.5 transition active:scale-95 min-h-[44px] sm:min-h-[38px]"
             >
               <ArrowUpRight className="w-3.5 h-3.5" />
               <span>Pay Bill</span>
@@ -108,7 +108,7 @@ export const CreditCardSection: React.FC<CreditCardSectionProps> = ({
           )}
           <button
             onClick={() => setIsAddCardOpen(true)}
-            className="px-3 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs text-white font-medium shadow-lg shadow-purple-600/20 flex items-center space-x-1.5 transition"
+            className="px-3.5 py-2 sm:py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-xs sm:text-sm text-white font-medium shadow-lg shadow-purple-600/20 flex items-center space-x-1.5 transition active:scale-95 min-h-[44px] sm:min-h-[38px]"
           >
             <Plus className="w-3.5 h-3.5" />
             <span>Add Card</span>

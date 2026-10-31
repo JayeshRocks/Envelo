@@ -475,13 +475,13 @@ export const App: React.FC = () => {
                   </p>
                 </div>
 
-                <div className="flex items-center space-x-2 overflow-x-auto scrollbar-none flex-nowrap pb-1.5 sm:pb-0 w-full sm:w-auto">
+                <div className="grid grid-cols-3 sm:flex sm:items-center gap-2 w-full sm:w-auto">
                   <button
                     onClick={() => setIsExportModalOpen(true)}
-                    className="px-3.5 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[38px] rounded-xl bg-neutral-900 hover:bg-neutral-800 text-xs sm:text-sm text-neutral-300 border border-white/10 flex items-center space-x-1.5 transition flex-shrink-0 whitespace-nowrap active:scale-95 shadow-sm"
+                    className="px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[38px] rounded-xl bg-neutral-900 hover:bg-neutral-800 text-xs sm:text-sm text-neutral-300 border border-white/10 flex items-center justify-center space-x-1.5 transition active:scale-95 shadow-sm"
                     title="Export Data"
                   >
-                    <Download className="w-3.5 h-3.5 text-sky-400" />
+                    <Download className="w-3.5 h-3.5 text-sky-400 flex-shrink-0" />
                     <span>Export</span>
                   </button>
                   <button
@@ -489,18 +489,18 @@ export const App: React.FC = () => {
                       setReconcileAccountId(undefined);
                       setIsReconcileModalOpen(true);
                     }}
-                    className="px-3.5 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[38px] rounded-xl bg-neutral-900 hover:bg-neutral-800 text-xs sm:text-sm text-neutral-300 border border-white/10 flex items-center space-x-1.5 transition flex-shrink-0 whitespace-nowrap active:scale-95 shadow-sm"
+                    className="px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[38px] rounded-xl bg-neutral-900 hover:bg-neutral-800 text-xs sm:text-sm text-neutral-300 border border-white/10 flex items-center justify-center space-x-1.5 transition active:scale-95 shadow-sm"
                     title="Reconcile Account Balance against Bank Statement"
                   >
-                    <Scale className="w-3.5 h-3.5 text-emerald-400" />
+                    <Scale className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
                     <span>Reconcile</span>
                   </button>
                   <button
                     onClick={() => setIsAccountsModalOpen(true)}
-                    className="px-3.5 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[38px] rounded-xl bg-neutral-900 hover:bg-neutral-800 text-xs sm:text-sm text-neutral-300 border border-white/10 flex items-center space-x-1.5 transition flex-shrink-0 whitespace-nowrap active:scale-95 shadow-sm"
+                    className="px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[38px] rounded-xl bg-neutral-900 hover:bg-neutral-800 text-xs sm:text-sm text-neutral-300 border border-white/10 flex items-center justify-center space-x-1.5 transition active:scale-95 shadow-sm"
                   >
-                    <Landmark className="w-3.5 h-3.5 text-sky-400" />
-                    <span>{accounts.length} Accounts</span>
+                    <Landmark className="w-3.5 h-3.5 text-sky-400 flex-shrink-0" />
+                    <span className="truncate">{accounts.length} Accounts</span>
                   </button>
                 </div>
               </div>

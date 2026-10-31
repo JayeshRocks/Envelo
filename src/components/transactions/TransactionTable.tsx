@@ -110,8 +110,8 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
             )}
           </div>
 
-          {/* Type Filter Pills */}
-          <div className="flex items-center p-1 rounded-xl bg-neutral-900 border border-white/10 text-xs sm:text-sm font-medium overflow-x-auto scrollbar-none flex-nowrap">
+          {/* Type Filter Pills — Full width 4-col segmented bar on mobile, flex on desktop (No horizontal scroll) */}
+          <div className="grid grid-cols-4 sm:flex items-center p-1 rounded-xl bg-neutral-900 border border-white/10 text-xs sm:text-sm font-medium w-full sm:w-auto">
             {[
               { id: 'all', label: 'All' },
               { id: 'expense', label: 'Expenses' },
@@ -121,7 +121,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
               <button
                 key={tab.id}
                 onClick={() => onTypeFilterChange(tab.id)}
-                className={`px-3 py-2 sm:py-1.5 min-h-[40px] sm:min-h-[32px] rounded-lg transition-all duration-200 active:scale-95 whitespace-nowrap flex items-center justify-center ${
+                className={`px-2 sm:px-3 py-2 sm:py-1.5 min-h-[40px] sm:min-h-[32px] rounded-lg transition-all duration-200 active:scale-95 text-center flex items-center justify-center ${
                   typeFilter === tab.id
                     ? 'bg-neutral-800 text-white shadow-sm font-semibold'
                     : 'text-neutral-400 hover:text-neutral-200'
@@ -223,7 +223,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
                   )}
 
                   <div className="flex items-center justify-between pt-1 border-t border-white/5 gap-2">
-                    <div className="flex items-center space-x-1.5 overflow-x-auto scrollbar-none flex-nowrap py-0.5 min-w-0">
+                    <div className="flex flex-wrap items-center gap-1.5 py-0.5 min-w-0">
                       {/* Type Badge */}
                       {isExpense && (
                         <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[10px] font-medium flex-shrink-0">

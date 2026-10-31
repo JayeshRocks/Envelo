@@ -279,8 +279,8 @@ export const RecordTransactionModal: React.FC<RecordTransactionModalProps> = ({
               />
             </div>
 
-            {/* Quick Amount Chips */}
-            <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pt-1">
+            {/* Quick Amount Chips — Wraps seamlessly on mobile & tablet without horizontal scroll */}
+            <div className="flex flex-wrap items-center gap-1.5 pt-1">
               {[100, 200, 500, 1000, 2000, 5000].map((quick) => (
                 <button
                   key={quick}
@@ -289,7 +289,7 @@ export const RecordTransactionModal: React.FC<RecordTransactionModalProps> = ({
                     const current = parseFloat(amountRupees) || 0;
                     setAmountRupees((current + quick).toString());
                   }}
-                  className="px-2.5 py-1 rounded-lg bg-neutral-900 hover:bg-neutral-800 text-[11px] font-mono font-medium text-neutral-300 hover:text-white border border-white/5 active:scale-95 transition flex-shrink-0"
+                  className="px-2.5 py-1.5 min-h-[36px] rounded-lg bg-neutral-900 hover:bg-neutral-800 text-xs font-mono font-medium text-neutral-300 hover:text-white border border-white/5 active:scale-95 transition flex items-center justify-center"
                 >
                   +₹{quick}
                 </button>
@@ -298,7 +298,7 @@ export const RecordTransactionModal: React.FC<RecordTransactionModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setAmountRupees('')}
-                  className="px-2 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-[10px] text-red-400 font-medium border border-red-500/20 active:scale-95 transition flex-shrink-0"
+                  className="px-2.5 py-1.5 min-h-[36px] rounded-lg bg-red-500/10 hover:bg-red-500/20 text-xs text-red-400 font-medium border border-red-500/20 active:scale-95 transition flex items-center justify-center"
                 >
                   Clear
                 </button>

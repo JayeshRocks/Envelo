@@ -84,7 +84,7 @@ export const SelfEmiSection: React.FC<SelfEmiSectionProps> = ({
 
         <button
           onClick={() => setIsAddOpen(true)}
-          className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs text-white font-medium shadow-lg shadow-indigo-600/20 flex items-center space-x-1.5 self-start sm:self-auto transition"
+          className="px-3.5 py-2 sm:py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs sm:text-sm text-white font-medium shadow-lg shadow-indigo-600/20 flex items-center space-x-1.5 self-start sm:self-auto transition active:scale-95 min-h-[44px] sm:min-h-[38px]"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Add Self EMI</span>

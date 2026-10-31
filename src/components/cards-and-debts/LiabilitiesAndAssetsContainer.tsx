@@ -197,8 +197,8 @@ export const LiabilitiesAndAssetsContainer: React.FC<LiabilitiesAndAssetsContain
       id="liabilities-and-assets"
       className="glass-card rounded-2xl border border-white/10 p-4 sm:p-6 space-y-4 sm:space-y-6 max-w-full overflow-hidden scroll-mt-20"
     >
-      {/* Tab Navigation header */}
-      <div className="flex items-center gap-2 border-b border-white/5 pb-3 sm:pb-4 overflow-x-auto scrollbar-none flex-nowrap w-full min-w-0">
+      {/* Tab Navigation header — Responsive grid on mobile & tablet, flex-wrap on desktop (No horizontal scrolling) */}
+      <div className="grid grid-cols-2 xs:grid-cols-3 lg:flex lg:flex-wrap items-center gap-1.5 sm:gap-2 border-b border-white/5 pb-3 sm:pb-4 w-full">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = currentTab === tab.id;
@@ -207,16 +207,16 @@ export const LiabilitiesAndAssetsContainer: React.FC<LiabilitiesAndAssetsContain
             <button
               key={tab.id}
               onClick={() => handleTabSelect(tab.id)}
-              className={`px-3.5 sm:px-4 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium flex items-center space-x-2 transition-all duration-200 active:scale-95 flex-shrink-0 whitespace-nowrap min-h-[44px] sm:min-h-[40px] ${
+              className={`px-3 py-2.5 sm:py-2 rounded-xl text-xs sm:text-sm font-medium flex items-center justify-center sm:justify-start space-x-2 transition-all duration-200 active:scale-95 min-h-[44px] sm:min-h-[40px] w-full lg:w-auto ${
                 isActive
-                  ? 'bg-neutral-800 text-white shadow-lg border border-white/10 font-semibold'
-                  : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-900/60'
+                  ? 'bg-neutral-800 text-white shadow-lg border border-white/10 font-semibold ring-1 ring-white/10'
+                  : 'text-neutral-400 hover:text-neutral-200 hover:bg-neutral-900/60 border border-transparent'
               }`}
             >
               <Icon className="w-4 h-4 flex-shrink-0" />
-              <span>{tab.name}</span>
+              <span className="truncate">{tab.name}</span>
               <span
-                className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono ${
+                className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono flex-shrink-0 ${
                   isActive ? 'bg-white/10' : 'bg-neutral-800'
                 } ${tab.badgeColor}`}
               >

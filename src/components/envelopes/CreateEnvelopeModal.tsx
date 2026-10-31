@@ -117,14 +117,14 @@ export const CreateEnvelopeModal: React.FC<CreateEnvelopeModalProps> = ({
           {/* Color Preset Palette */}
           <div className="space-y-1.5">
             <label className="text-xs font-medium text-neutral-300">Category Color</label>
-            <div className="flex items-center space-x-3 pt-1 overflow-x-auto scrollbar-none py-1">
+            <div className="flex items-center space-x-2 pt-1 flex-wrap gap-y-2 py-1">
               {COLOR_PRESETS.map((preset) => (
                 <button
                   key={preset.hex}
                   type="button"
                   onClick={() => setColor(preset.hex)}
                   style={{ backgroundColor: preset.hex }}
-                  className={`w-7 h-7 sm:w-6 sm:h-6 rounded-full transition-transform flex-shrink-0 ${
+                  className={`w-7 h-7 sm:w-6 sm:h-6 rounded-full transition-transform active:scale-95 ${
                     color === preset.hex ? 'scale-125 ring-2 ring-white ring-offset-2 ring-offset-black' : 'opacity-70 hover:opacity-100'
                   }`}
                   title={preset.name}
