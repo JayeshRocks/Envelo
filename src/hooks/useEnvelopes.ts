@@ -10,6 +10,16 @@ import {
   deleteEnvelope,
 } from '@/lib/api/envelopes';
 
+export interface AllocationHistoryEntry {
+  id: string;
+  envelopeId: string;
+  envelopeName: string;
+  previousAllocatedPaise: bigint;
+  newAllocatedPaise: bigint;
+  periodKey: string;
+  timestamp: number;
+}
+
 /**
  * Returns the current date in YYYY-MM format.
  */
@@ -38,6 +48,7 @@ export function useEnvelopes() {
   const { user } = useAuth();
   const [selectedPeriod, setSelectedPeriod] = useState<string>(getCurrentYearMonth());
   const [envelopes, setEnvelopes] = useState<EnvelopeWithAllocation[]>([]);
+  const [undoStack, setUndoStack] = useState<AllocationHistoryEntry[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -85,11 +96,50 @@ export function useEnvelopes() {
   const allocateFunds = async (envelopeId: string, amountPaise: bigint) => {
     if (!user) throw new Error('User is not authenticated.');
     setError(null);
+    const target = envelopes.find((e) => e.id === envelopeId);
+    const prevAllocated = target ? target.allocatedPaise : 0n;
+
     try {
       await upsertEnvelopeAllocation(envelopeId, user.id, selectedPeriod, amountPaise);
+
+      // Record in undo stack if allocation actually changed
+      if (prevAllocated !== amountPaise) {
+        const historyEntry: AllocationHistoryEntry = {
+          id: Math.random().toString(36).substring(2, 9),
+          envelopeId,
+          envelopeName: target?.name ?? 'Envelope',
+          previousAllocatedPaise: prevAllocated,
+          newAllocatedPaise: amountPaise,
+          periodKey: selectedPeriod,
+          timestamp: Date.now(),
+        };
+        setUndoStack((prev) => [historyEntry, ...prev].slice(0, 10));
+      }
+
       await loadEnvelopes();
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Failed to update allocation.';
+      setError(message);
+      throw err;
+    }
+  };
+
+  const undoLastAllocation = async (): Promise<AllocationHistoryEntry | null> => {
+    if (!user || undoStack.length === 0) return null;
+    const [entryToUndo, ...remaining] = undoStack;
+    setError(null);
+    try {
+      await upsertEnvelopeAllocation(
+        entryToUndo.envelopeId,
+        user.id,
+        entryToUndo.periodKey,
+        entryToUndo.previousAllocatedPaise
+      );
+      setUndoStack(remaining);
+      await loadEnvelopes();
+      return entryToUndo;
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to undo allocation.';
       setError(message);
       throw err;
     }
@@ -194,5 +244,8 @@ export function useEnvelopes() {
     editEnvelope,
     removeEnvelope,
     refresh: loadEnvelopes,
+    undoLastAllocation,
+    canUndoAllocation: undoStack.length > 0,
+    lastAllocation: undoStack[0] ?? null,
   };
 }

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Plus, FolderPlus, RefreshCw, Layers } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { Plus, FolderPlus, RefreshCw, Layers, RotateCcw } from 'lucide-react';
 import { useEnvelopes } from '@/hooks/useEnvelopes';
 import { EnvelopeCard } from './EnvelopeCard';
 import { BudgetPeriodSelector } from './BudgetPeriodSelector';
@@ -28,12 +28,52 @@ export const EnvelopeGrid: React.FC = () => {
     editEnvelope,
     removeEnvelope,
     refresh,
+    undoLastAllocation,
+    canUndoAllocation,
+    lastAllocation,
   } = useEnvelopes();
 
   const [allocatingEnvelope, setAllocatingEnvelope] = useState<EnvelopeWithAllocation | null>(null);
   const [transferringEnvelopeId, setTransferringEnvelopeId] = useState<string | null>(null);
   const [editingEnvelope, setEditingEnvelope] = useState<EnvelopeWithAllocation | null>(null);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isUndoing, setIsUndoing] = useState(false);
+
+  const handleUndoAllocation = useCallback(async () => {
+    if (!canUndoAllocation || isUndoing) return;
+    setIsUndoing(true);
+    try {
+      const undone = await undoLastAllocation();
+      if (undone) {
+        showToast(
+          `Reverted ${undone.envelopeName} budget to ${formatINR(undone.previousAllocatedPaise)}`,
+          'info'
+        );
+      }
+    } catch {
+      showToast('Failed to undo allocation', 'error');
+    } finally {
+      setIsUndoing(false);
+    }
+  }, [canUndoAllocation, isUndoing, undoLastAllocation, showToast]);
+
+  // Global keyboard shortcut: Ctrl+Z / Cmd+Z to undo last allocation when not focused on an input
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement)?.tagName)) {
+        return;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z' && !e.shiftKey) {
+        if (canUndoAllocation && !isUndoing) {
+          e.preventDefault();
+          handleUndoAllocation();
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [canUndoAllocation, isUndoing, handleUndoAllocation]);
 
   return (
     <section id="envelope-budgeting" className="space-y-5 max-w-full overflow-hidden scroll-mt-20">
@@ -55,6 +95,21 @@ export const EnvelopeGrid: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          {canUndoAllocation && lastAllocation && (
+            <button
+              onClick={handleUndoAllocation}
+              disabled={isUndoing}
+              title={`Undo allocation: Restore ${lastAllocation.envelopeName} to ${formatINR(lastAllocation.previousAllocatedPaise)} (Ctrl+Z)`}
+              className="flex items-center space-x-1.5 px-3 py-2 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-amber-300 hover:text-amber-200 text-xs sm:text-sm font-medium transition active:scale-95 min-h-[44px] sm:min-h-[38px] animate-fade-in shadow-sm cursor-pointer"
+            >
+              <RotateCcw className={`w-3.5 h-3.5 ${isUndoing ? 'animate-spin' : ''}`} />
+              <span>Undo Allocation</span>
+              <span className="hidden md:inline text-[10px] text-amber-400/80 font-mono">
+                ({lastAllocation.envelopeName})
+              </span>
+            </button>
+          )}
+
           <BudgetPeriodSelector
             selectedPeriod={selectedPeriod}
             onPrev={prevPeriod}
@@ -162,8 +217,35 @@ export const EnvelopeGrid: React.FC = () => {
         envelope={allocatingEnvelope}
         onClose={() => setAllocatingEnvelope(null)}
         onAllocate={async (envelopeId, amount) => {
+          const prevAlloc = allocatingEnvelope?.allocatedPaise ?? 0n;
+          const envName = allocatingEnvelope?.name ?? 'Envelope';
           await allocateFunds(envelopeId, amount);
-          showToast('Monthly envelope budget set', 'success');
+
+          if (prevAlloc !== amount) {
+            showToast(
+              `Allocated ${formatINR(amount)} to ${envName}`,
+              'success',
+              7000,
+              {
+                label: 'Undo',
+                onClick: async () => {
+                  try {
+                    const undone = await undoLastAllocation();
+                    if (undone) {
+                      showToast(
+                        `Reverted ${undone.envelopeName} budget to ${formatINR(undone.previousAllocatedPaise)}`,
+                        'info'
+                      );
+                    }
+                  } catch {
+                    showToast('Failed to undo allocation', 'error');
+                  }
+                },
+              }
+            );
+          } else {
+            showToast('Monthly envelope budget unchanged', 'info');
+          }
         }}
       />
 
@@ -174,7 +256,28 @@ export const EnvelopeGrid: React.FC = () => {
         onClose={() => setTransferringEnvelopeId(null)}
         onTransfer={async (fromId, toId, amount) => {
           await transferFunds(fromId, toId, amount);
-          showToast('Funds reallocated between envelopes', 'success');
+          const fromEnv = envelopes.find((e) => e.id === fromId)?.name ?? 'Envelope';
+          const toEnv = envelopes.find((e) => e.id === toId)?.name ?? 'Envelope';
+
+          showToast(
+            `Moved ${formatINR(amount)} from ${fromEnv} to ${toEnv}`,
+            'success',
+            7000,
+            {
+              label: 'Undo',
+              onClick: async () => {
+                try {
+                  await transferFunds(toId, fromId, amount);
+                  showToast(
+                    `Reverted transfer: ${formatINR(amount)} moved back to ${fromEnv}`,
+                    'info'
+                  );
+                } catch {
+                  showToast('Failed to revert envelope transfer', 'error');
+                }
+              },
+            }
+          );
         }}
       />
 
