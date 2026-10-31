@@ -9,6 +9,12 @@
     --color-surface-border: rgba(255, 255, 255, 0.10);
   }
 
+  /* Themed text selection from the palette (Impeccable craft floor) */
+  ::selection {
+    background-color: rgba(56, 189, 248, 0.25);
+    color: #ffffff;
+  }
+
   html {
     scroll-behavior: smooth;
     width: 100%;
@@ -38,6 +44,22 @@
     min-height: 100vh;
   }
 
+  /* Themed caret and clean underline offsets */
+  input,
+  textarea {
+    caret-color: #38bdf8;
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+
+  /* Universal focus-visible indicator */
+  :focus-visible {
+    outline: 2px solid rgba(56, 189, 248, 0.65);
+    outline-offset: 2px;
+  }
+
   /* Universal smooth interaction transitions for buttons, links, and form controls */
   button,
   a,
@@ -46,7 +68,7 @@
   textarea {
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
     transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-    transition-duration: 200ms;
+    transition-duration: 180ms;
   }
 
   /* Tactile micro-interaction on button clicks */
@@ -156,24 +178,24 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Custom dark scrollbar */
+  /* Custom dark scrollbar themed to the palette (Impeccable craft floor) */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: rgba(15, 15, 18, 0.6);
+    background: #08090a;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.16);
     border-radius: 9999px;
-    transition: background 0.2s ease;
+    transition: background 0.18s ease;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.32);
   }
 
   /* Utility to hide scrollbars on touch horizontally scrolling chips */

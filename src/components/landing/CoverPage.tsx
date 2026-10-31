@@ -18,7 +18,6 @@ import {
   Calculator,
   Sliders,
   Check,
-  Layers,
   Activity,
   ArrowUpRight,
 } from 'lucide-react';
@@ -76,7 +75,7 @@ export const CoverPage: React.FC<CoverPageProps> = ({
         {/* Main Display Title */}
         <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.12] max-w-4xl mx-auto">
           Personal Finance with{' '}
-          <span className="bg-gradient-to-r from-sky-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">
+          <span className="text-sky-400">
             Double-Entry Precision
           </span>
         </h1>
@@ -204,10 +203,6 @@ export const CoverPage: React.FC<CoverPageProps> = ({
           ========================================================================= */}
       <section id="pillars" className="space-y-8 scroll-mt-24 max-w-5xl mx-auto px-3 sm:px-6">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <div className="inline-flex items-center space-x-1.5 text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-medium">
-            <Layers className="w-3.5 h-3.5" />
-            <span>Explicit Balance Taxonomy</span>
-          </div>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
             The Six Financial Pillars
           </h2>
@@ -350,10 +345,6 @@ export const CoverPage: React.FC<CoverPageProps> = ({
           ========================================================================= */}
       <section id="subsystems" className="space-y-8 scroll-mt-24 max-w-5xl mx-auto px-3 sm:px-6">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
-          <div className="inline-flex items-center space-x-1.5 text-xs px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-medium">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Autonomous Accounting Subsystems</span>
-          </div>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
             Engineered for Precision & Convenience
           </h2>
@@ -502,10 +493,6 @@ export const CoverPage: React.FC<CoverPageProps> = ({
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
-            <div className="inline-flex items-center space-x-1.5 text-xs px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 font-medium">
-              <Sliders className="w-3.5 h-3.5" />
-              <span>Interactive Demonstration</span>
-            </div>
             <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
               Experience True Envelope Allocation
             </h3>
