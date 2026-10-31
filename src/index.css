@@ -4,9 +4,9 @@
 
 @layer base {
   :root {
-    --color-surface-bg: #0a0a0c;
-    --color-surface-card: rgba(23, 23, 28, 0.7);
-    --color-surface-border: rgba(255, 255, 255, 0.08);
+    --color-surface-bg: #08090a;
+    --color-surface-card: #0f1011;
+    --color-surface-border: rgba(255, 255, 255, 0.10);
   }
 
   html {
@@ -95,11 +95,9 @@
 
 @layer utilities {
   .glass-card {
-    background: rgba(23, 23, 28, 0.75);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.4);
+    background: #0f1011;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.5);
     transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1),
                 box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
                 transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -111,13 +109,13 @@
 
   .glass-card-interactive:hover {
     transform: translateY(-2px);
-    border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.6), 0 0 16px -2px rgba(14, 165, 233, 0.1);
+    border-color: rgba(255, 255, 255, 0.20);
+    box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.7), 0 0 20px -2px rgba(56, 189, 248, 0.12);
   }
 
   .glass-input {
-    background: rgba(18, 18, 22, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #0a0a0c;
+    border: 1px solid rgba(255, 255, 255, 0.12);
     color: #f9fafb;
     transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1),
                 box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
@@ -125,12 +123,12 @@
   }
 
   .glass-input:hover:not(:disabled):not(:focus) {
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.22);
   }
 
   .glass-input:focus {
-    border-color: #0ea5e9;
-    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25);
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25);
     outline: none;
   }
 

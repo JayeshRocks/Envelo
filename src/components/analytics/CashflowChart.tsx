@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { TrendingUp, ArrowDownRight, ArrowUpRight, Percent } from 'lucide-react';
 import type { TransactionWithEntries } from '@/lib/api/transactions';
 import { formatINR } from '@/lib/accounting/currency';
+import { SpotlightCard } from '@/components/common/SpotlightCard';
 
 interface CashflowChartProps {
   transactions: TransactionWithEntries[];
@@ -85,14 +86,17 @@ export const CashflowChart: React.FC<CashflowChartProps> = ({ transactions }) =>
   }, [monthlyData]);
 
   return (
-    <div className="glass-card rounded-2xl border border-white/10 p-5 space-y-5 max-w-full overflow-hidden">
+    <SpotlightCard
+      spotlightColor="rgba(16, 185, 129, 0.14)"
+      className="p-5 sm:p-6 space-y-5 max-w-full overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300"
+    >
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="space-y-0.5">
           <div className="flex items-center space-x-2">
-            <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
+            <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               <TrendingUp className="w-4 h-4" />
             </div>
-            <h4 className="text-sm font-semibold text-white">Monthly Cashflow & Savings Rate</h4>
+            <h4 className="text-sm font-semibold text-white tracking-tight">Monthly Cashflow & Savings Rate</h4>
           </div>
           <p className="text-xs text-neutral-400">
             Realized cash inflows vs expenses across active budget periods
@@ -100,45 +104,45 @@ export const CashflowChart: React.FC<CashflowChartProps> = ({ transactions }) =>
         </div>
 
         {/* Current Month Quick Metrics */}
-        <div className="flex items-center space-x-3 text-xs">
+        <div className="flex items-center space-x-3 text-xs font-mono">
           <div className="flex items-center space-x-1.5">
             <span className="w-2.5 h-2.5 rounded-sm bg-emerald-500 inline-block" />
-            <span className="text-neutral-400">Income</span>
+            <span className="text-neutral-300">Income</span>
           </div>
           <div className="flex items-center space-x-1.5">
             <span className="w-2.5 h-2.5 rounded-sm bg-rose-500 inline-block" />
-            <span className="text-neutral-400">Expense</span>
+            <span className="text-neutral-300">Expense</span>
           </div>
         </div>
       </div>
 
       {/* Summary KPI Strip */}
-      <div className="grid grid-cols-1 xs:grid-cols-3 gap-2 sm:gap-3 p-3.5 rounded-xl bg-neutral-900/60 border border-white/5">
+      <div className="grid grid-cols-1 xs:grid-cols-3 gap-2 sm:gap-3 p-3.5 rounded-xl bg-[#0b0c0e] border border-white/10 shadow-inner">
         <div>
-          <div className="text-[11px] text-neutral-400 flex items-center space-x-1">
+          <div className="text-[11px] text-neutral-400 flex items-center space-x-1 font-semibold uppercase tracking-wider">
             <ArrowUpRight className="w-3.5 h-3.5 text-emerald-400" />
             <span>Monthly Inflow</span>
           </div>
-          <div className="text-sm sm:text-base font-bold font-mono text-emerald-400 mt-0.5 truncate">
+          <div className="text-sm sm:text-base font-bold font-mono text-emerald-400 mt-1 truncate tabular-nums">
             {formatINR(currentMonth.incomePaise)}
           </div>
         </div>
         <div>
-          <div className="text-[11px] text-neutral-400 flex items-center space-x-1">
+          <div className="text-[11px] text-neutral-400 flex items-center space-x-1 font-semibold uppercase tracking-wider">
             <ArrowDownRight className="w-3.5 h-3.5 text-rose-400" />
             <span>Monthly Outflow</span>
           </div>
-          <div className="text-sm sm:text-base font-bold font-mono text-rose-400 mt-0.5 truncate">
+          <div className="text-sm sm:text-base font-bold font-mono text-rose-400 mt-1 truncate tabular-nums">
             {formatINR(currentMonth.expensePaise)}
           </div>
         </div>
         <div>
-          <div className="text-[11px] text-neutral-400 flex items-center space-x-1">
+          <div className="text-[11px] text-neutral-400 flex items-center space-x-1 font-semibold uppercase tracking-wider">
             <Percent className="w-3.5 h-3.5 text-sky-400" />
             <span>Savings Rate</span>
           </div>
           <div
-            className={`text-sm sm:text-base font-bold font-mono mt-0.5 truncate ${
+            className={`text-sm sm:text-base font-bold font-mono mt-1 truncate tabular-nums ${
               currentMonth.savingsRate >= 0 ? 'text-emerald-400' : 'text-rose-400'
             }`}
           >
@@ -165,7 +169,7 @@ export const CashflowChart: React.FC<CashflowChartProps> = ({ transactions }) =>
               >
                 {/* Tooltip on hover / tap */}
                 <div
-                  className={`transition-opacity duration-200 pointer-events-none mb-2 text-[10px] bg-neutral-900 border border-white/10 rounded-lg p-2 shadow-xl text-center space-y-0.5 whitespace-nowrap z-20 absolute bottom-full ${
+                  className={`transition-opacity duration-200 pointer-events-none mb-2 text-[10px] bg-neutral-900 border border-white/15 rounded-lg p-2.5 shadow-2xl text-center space-y-0.5 whitespace-nowrap z-20 absolute bottom-full ${
                     isSelected ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
                   }`}
                 >
@@ -210,6 +214,6 @@ export const CashflowChart: React.FC<CashflowChartProps> = ({ transactions }) =>
           ))}
         </div>
       </div>
-    </div>
+    </SpotlightCard>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { ShieldCheck, ShieldAlert, Wallet } from 'lucide-react';
 import { formatINR } from '@/lib/accounting/currency';
+import { SpotlightCard } from '@/components/common/SpotlightCard';
 
 interface NetWorthTrackerProps {
   spendableCashPaise: bigint;
@@ -37,14 +38,26 @@ export const NetWorthTracker: React.FC<NetWorthTrackerProps> = ({
     totalVolume > 0n ? Number((totalLiabilitiesPaise * 10000n) / totalVolume) / 100 : 0;
 
   return (
-    <div className="glass-card rounded-2xl border border-white/10 p-5 space-y-5">
+    <SpotlightCard
+      spotlightColor={isSolvent ? 'rgba(16, 185, 129, 0.16)' : 'rgba(244, 63, 94, 0.16)'}
+      className="p-5 sm:p-6 space-y-5 border border-white/10 hover:border-white/20 transition-all duration-300 relative overflow-hidden"
+    >
+      {/* Top accent highlight */}
+      <div
+        className={`absolute top-0 left-0 right-0 h-1 ${
+          isSolvent
+            ? 'bg-gradient-to-r from-emerald-500 via-teal-400 to-sky-500'
+            : 'bg-gradient-to-r from-rose-500 via-red-500 to-amber-500'
+        }`}
+      />
+
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="space-y-0.5">
           <div className="flex items-center space-x-2">
-            <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400">
+            <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
               <Wallet className="w-4 h-4" />
             </div>
-            <h4 className="text-sm font-semibold text-white">Net Worth & Solvency Health</h4>
+            <h4 className="text-sm font-semibold text-white tracking-tight">Net Worth & Solvency Health</h4>
           </div>
           <p className="text-xs text-neutral-400">
             Authoritative solvency: Liquid cash + locked savings vs all unsettled obligations
@@ -52,7 +65,7 @@ export const NetWorthTracker: React.FC<NetWorthTrackerProps> = ({
         </div>
 
         <span
-          className={`inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-[11px] font-semibold border ${
+          className={`inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-[11px] font-semibold border font-mono ${
             isSolvent
               ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
               : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
@@ -64,7 +77,7 @@ export const NetWorthTracker: React.FC<NetWorthTrackerProps> = ({
       </div>
 
       {/* Net Worth Hero Card */}
-      <div className="p-4 rounded-xl bg-gradient-to-r from-neutral-900 via-neutral-900/90 to-neutral-900 border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="p-4 sm:p-5 rounded-xl bg-[#0b0c0e] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-inner">
         <div>
           <div className="text-xs text-neutral-400 font-medium">Authoritative Net Worth</div>
           <div
@@ -74,22 +87,22 @@ export const NetWorthTracker: React.FC<NetWorthTrackerProps> = ({
           >
             {formatINR(netWorthPaise)}
           </div>
-          <div className="text-[11px] text-neutral-400 mt-1">
+          <div className="text-[11px] text-neutral-400 mt-1 font-mono">
             Total Assets ({formatINR(totalAssetsPaise)}) − Total Obligations ({formatINR(totalLiabilitiesPaise)})
           </div>
         </div>
 
         {/* Quick Summary Pill Boxes */}
         <div className="grid grid-cols-2 gap-2 sm:flex sm:items-center sm:space-x-3 text-xs w-full sm:w-auto">
-          <div className="p-3 rounded-xl bg-neutral-800/60 border border-white/5 space-y-0.5">
-            <div className="text-[10px] text-neutral-400">Total Assets</div>
-            <div className="font-mono font-bold text-emerald-400 text-xs sm:text-sm truncate">
+          <div className="p-3 rounded-xl bg-neutral-900/90 border border-white/5 space-y-0.5">
+            <div className="text-[10px] text-neutral-400 uppercase tracking-wider font-semibold">Total Assets</div>
+            <div className="font-mono font-bold text-emerald-400 text-xs sm:text-sm truncate tabular-nums">
               {formatINR(totalAssetsPaise)}
             </div>
           </div>
-          <div className="p-3 rounded-xl bg-neutral-800/60 border border-white/5 space-y-0.5">
-            <div className="text-[10px] text-neutral-400">Total Obligations</div>
-            <div className="font-mono font-bold text-rose-400 text-xs sm:text-sm truncate">
+          <div className="p-3 rounded-xl bg-neutral-900/90 border border-white/5 space-y-0.5">
+            <div className="text-[10px] text-neutral-400 uppercase tracking-wider font-semibold">Total Obligations</div>
+            <div className="font-mono font-bold text-rose-400 text-xs sm:text-sm truncate tabular-nums">
               {formatINR(totalLiabilitiesPaise)}
             </div>
           </div>
@@ -99,10 +112,10 @@ export const NetWorthTracker: React.FC<NetWorthTrackerProps> = ({
       {/* Visual Asset vs Liability Ratio Bar */}
       <div className="space-y-1.5">
         <div className="flex items-center justify-between text-[11px] font-mono">
-          <span className="text-emerald-400">Assets ({assetSharePercent.toFixed(1)}%)</span>
-          <span className="text-rose-400">Liabilities ({liabilitySharePercent.toFixed(1)}%)</span>
+          <span className="text-emerald-400 font-semibold">Assets ({assetSharePercent.toFixed(1)}%)</span>
+          <span className="text-rose-400 font-semibold">Liabilities ({liabilitySharePercent.toFixed(1)}%)</span>
         </div>
-        <div className="w-full bg-neutral-800 rounded-full h-2.5 overflow-hidden flex">
+        <div className="w-full bg-neutral-900 rounded-full h-2.5 overflow-hidden flex border border-white/5">
           <div
             className="bg-emerald-500 h-full transition-all duration-500"
             style={{ width: `${assetSharePercent}%` }}
@@ -112,11 +125,11 @@ export const NetWorthTracker: React.FC<NetWorthTrackerProps> = ({
             style={{ width: `${liabilitySharePercent}%` }}
           />
         </div>
-        <div className="text-[10px] text-neutral-400 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pt-0.5">
+        <div className="text-[10px] text-neutral-400 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pt-0.5 font-mono">
           <span>Spendable Cash: {formatINR(spendableCashPaise)} • FDs: {formatINR(savingsAndFDsPaise)}</span>
           <span>Cards: {formatINR(creditCardLiabilitiesPaise)} • Debts: {formatINR(actualDebtsPaise)}</span>
         </div>
       </div>
-    </div>
+    </SpotlightCard>
   );
 };

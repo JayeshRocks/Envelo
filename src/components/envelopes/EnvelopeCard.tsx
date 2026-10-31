@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import type { EnvelopeWithAllocation } from '@/types/accounting.types';
 import { formatINR } from '@/lib/accounting/currency';
+import { SpotlightCard } from '@/components/common/SpotlightCard';
 
 interface EnvelopeCardProps {
   envelope: EnvelopeWithAllocation;
@@ -75,21 +76,25 @@ export const EnvelopeCard: React.FC<EnvelopeCardProps> = ({
       : 0;
 
   const isOverspent = envelope.availablePaise < 0n;
+  const categoryColor = envelope.color || '#38bdf8';
 
   return (
-    <div className="glass-card glass-card-interactive rounded-2xl p-5 border border-white/5 space-y-4 relative overflow-hidden group">
+    <SpotlightCard
+      spotlightColor={`${categoryColor}24`}
+      className="space-y-4 relative overflow-hidden group p-5 border border-white/10 hover:border-white/20 transition-all duration-300"
+    >
       {/* Top subtle glow line matching category color */}
       <div
-        className="absolute top-0 left-0 right-0 h-1 opacity-70 group-hover:opacity-100 transition-opacity"
-        style={{ backgroundColor: envelope.color || '#38bdf8' }}
+        className="absolute top-0 left-0 right-0 h-1 opacity-80 group-hover:opacity-100 transition-opacity"
+        style={{ backgroundColor: categoryColor }}
       />
 
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2.5">
           <div
-            className="w-8 h-8 rounded-xl flex items-center justify-center text-white/90 shadow-sm transition-transform duration-300 group-hover:scale-105"
-            style={{ backgroundColor: `${envelope.color || '#38bdf8'}25`, color: envelope.color || '#38bdf8' }}
+            className="w-8 h-8 rounded-xl flex items-center justify-center text-white/90 shadow-sm transition-transform duration-300 group-hover:scale-105 border border-white/10"
+            style={{ backgroundColor: `${categoryColor}25`, color: categoryColor }}
           >
             <IconComp className="w-4 h-4" />
           </div>
@@ -99,7 +104,7 @@ export const EnvelopeCard: React.FC<EnvelopeCardProps> = ({
               {isEmergency && (
                 <span
                   title="Protected Emergency Reserve"
-                  className="inline-flex items-center space-x-0.5 text-[10px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20"
+                  className="inline-flex items-center space-x-0.5 text-[10px] px-1.5 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20 font-mono"
                 >
                   <ShieldCheck className="w-2.5 h-2.5" />
                   <span>Reserve</span>
@@ -113,25 +118,25 @@ export const EnvelopeCard: React.FC<EnvelopeCardProps> = ({
         </div>
 
         {/* Quick action buttons */}
-        <div className="flex items-center space-x-1.5 opacity-100 sm:opacity-80 sm:group-hover:opacity-100 transition-opacity">
+        <div className="flex items-center space-x-1.5 opacity-100 sm:opacity-85 sm:group-hover:opacity-100 transition-opacity">
           <button
             onClick={onEdit}
             title="Edit Envelope Details"
-            className="p-2.5 sm:p-1.5 rounded-lg bg-neutral-900/80 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-white/5 transition-all duration-200 active:scale-90 min-h-[44px] min-w-[44px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center"
+            className="p-2.5 sm:p-1.5 rounded-lg bg-neutral-900/90 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-white/10 hover:border-white/20 transition-all duration-200 active:scale-90 min-h-[44px] min-w-[44px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center cursor-pointer shadow-sm"
           >
             <Pencil className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={onTransfer}
             title="Transfer / Reallocate Funds"
-            className="p-2.5 sm:p-1.5 rounded-lg bg-neutral-900/80 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-white/5 transition-all duration-200 active:scale-90 min-h-[44px] min-w-[44px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center"
+            className="p-2.5 sm:p-1.5 rounded-lg bg-neutral-900/90 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-white/10 hover:border-white/20 transition-all duration-200 active:scale-90 min-h-[44px] min-w-[44px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center cursor-pointer shadow-sm"
           >
             <ArrowRightLeft className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={onAllocate}
             title="Set Monthly Budget"
-            className="p-2.5 sm:p-1.5 rounded-lg bg-neutral-900/80 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-white/5 transition-all duration-200 active:scale-90 min-h-[44px] min-w-[44px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center"
+            className="p-2.5 sm:p-1.5 rounded-lg bg-neutral-900/90 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-white/10 hover:border-white/20 transition-all duration-200 active:scale-90 min-h-[44px] min-w-[44px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center cursor-pointer shadow-sm"
           >
             <PlusCircle className="w-3.5 h-3.5" />
           </button>
@@ -174,11 +179,11 @@ export const EnvelopeCard: React.FC<EnvelopeCardProps> = ({
 
       {/* Footer Pill */}
       {envelope.carriedOverPaise > 0n && (
-        <div className="text-[10px] text-neutral-400 bg-neutral-900/60 px-2 py-1 rounded-md border border-white/5 flex items-center justify-between">
+        <div className="text-[10px] text-neutral-400 bg-neutral-900/60 px-2.5 py-1.5 rounded-lg border border-white/5 flex items-center justify-between">
           <span>Rolled over from last month:</span>
           <span className="font-mono text-neutral-300 font-medium">{formatINR(envelope.carriedOverPaise)}</span>
         </div>
       )}
-    </div>
+    </SpotlightCard>
   );
 };

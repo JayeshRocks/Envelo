@@ -188,7 +188,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
               return (
                 <div
                   key={tx.id}
-                  className="glass-card rounded-2xl p-4 border border-white/5 space-y-2.5 active:bg-white/[0.02] transition"
+                  className="bg-[#0f1011] rounded-2xl p-4 border border-white/10 space-y-2.5 active:bg-white/[0.02] transition shadow-md"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="min-w-0 flex-1">
@@ -303,10 +303,10 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
 
       {/* Desktop Table Surface (Shown only on Desktop-class devices) */}
       {isDesktop && (
-        <div className="glass-card rounded-2xl border border-white/5 overflow-hidden shadow-xl">
+        <div className="bg-[#0f1011] rounded-2xl border border-white/10 overflow-hidden shadow-xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-neutral-900/80 border-b border-white/5 text-[11px] font-medium text-neutral-400 uppercase tracking-wider">
+              <thead className="bg-[#0b0c0e] border-b border-white/10 text-[11px] font-semibold text-neutral-400 uppercase tracking-wider">
                 <tr>
                   <th className="py-3 px-4">Date</th>
                   <th className="py-3 px-4">Description / Payee</th>

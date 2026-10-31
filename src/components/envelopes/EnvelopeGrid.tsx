@@ -134,33 +134,36 @@ export const EnvelopeGrid: React.FC = () => {
         </div>
       </div>
 
-      {/* Monthly Summary Statistics Strip */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-neutral-900/60 border border-white/5">
-        <div className="space-y-0.5">
-          <div className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider">
+      {/* Monthly Summary Statistics Strip (Watermelon UI Metric Block) */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 sm:p-5 rounded-2xl bg-[#0f1011] border border-white/10 shadow-lg">
+        <div className="space-y-1">
+          <div className="text-[11px] font-semibold text-neutral-400 uppercase tracking-wider">
             Total Monthly Budget
           </div>
-          <div className="text-lg font-bold font-mono tracking-tight text-white tabular-nums">
+          <div className="text-xl font-bold font-mono tracking-tight text-white tabular-nums">
             {formatINR(totalAllocatedPaise)}
           </div>
+          <div className="text-[10px] text-neutral-500 font-mono">Assigned to active envelopes</div>
         </div>
 
-        <div className="space-y-0.5 sm:border-l sm:border-white/5 sm:pl-4">
-          <div className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider">
+        <div className="space-y-1 sm:border-l sm:border-white/10 sm:pl-5">
+          <div className="text-[11px] font-semibold text-neutral-400 uppercase tracking-wider">
             Total Spent This Month
           </div>
-          <div className="text-lg font-bold font-mono tracking-tight text-neutral-300 tabular-nums">
+          <div className="text-xl font-bold font-mono tracking-tight text-neutral-300 tabular-nums">
             {formatINR(totalSpentPaise)}
           </div>
+          <div className="text-[10px] text-neutral-500 font-mono">Debited from allocations</div>
         </div>
 
-        <div className="space-y-0.5 sm:border-l sm:border-white/5 sm:pl-4">
-          <div className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider">
+        <div className="space-y-1 sm:border-l sm:border-white/10 sm:pl-5">
+          <div className="text-[11px] font-semibold text-neutral-400 uppercase tracking-wider">
             Total Available to Spend
           </div>
-          <div className="text-lg font-bold font-mono tracking-tight text-emerald-400 tabular-nums">
+          <div className="text-xl font-bold font-mono tracking-tight text-emerald-400 tabular-nums">
             {formatINR(totalAvailablePaise)}
           </div>
+          <div className="text-[10px] text-emerald-400/80 font-mono">Liquid safe spending capacity</div>
         </div>
       </div>
 

@@ -27,6 +27,7 @@ import { useSelfEmis } from '@/hooks/useSelfEmis';
 import { useActualDebts } from '@/hooks/useActualDebts';
 import { useMonthlyTargets } from '@/hooks/useMonthlyTargets';
 import { Header } from '@/components/common/Header';
+import { SpotlightCard } from '@/components/common/SpotlightCard';
 import { AuthModal } from '@/components/auth/AuthModal';
 import { CoverPage } from '@/components/landing/CoverPage';
 import { EnvelopeGrid } from '@/components/envelopes/EnvelopeGrid';
@@ -505,20 +506,22 @@ export const App: React.FC = () => {
                 </div>
               </div>
 
-              {/* The 6 Pillars Grid */}
+              {/* The 6 Pillars Grid (Cult UI Cursor-Tracking Spotlight Cards) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {/* 1. Liquid Funds */}
-                <button
-                  type="button"
+                <SpotlightCard
+                  as="button"
                   onClick={() => setIsAccountsModalOpen(true)}
-                  className="glass-card glass-card-interactive rounded-2xl p-5 space-y-3 relative overflow-hidden text-left w-full cursor-pointer group active:scale-[0.98] transition-all"
+                  spotlightColor="rgba(56, 189, 248, 0.18)"
+                  className="space-y-3 relative overflow-hidden group cursor-pointer"
                   title="Manage Liquid Accounts & Cash"
                 >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-sky-400/80 group-hover:bg-sky-400 transition-colors" />
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider group-hover:text-sky-300 transition">
+                    <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider group-hover:text-sky-300 transition-colors">
                       1. Liquid Funds
                     </span>
-                    <div className="p-2 rounded-xl bg-sky-500/10 text-sky-400 group-hover:bg-sky-500/20 group-hover:scale-105 transition">
+                    <div className="p-2 rounded-xl bg-sky-500/10 text-sky-400 border border-sky-500/20 group-hover:bg-sky-500/20 group-hover:scale-105 transition-all">
                       <Wallet className="w-5 h-5" />
                     </div>
                   </div>
@@ -528,23 +531,25 @@ export const App: React.FC = () => {
                     </div>
                     <div className="text-xs text-neutral-400 mt-1 flex items-center justify-between">
                       <span>Liquid Bank Accounts & Cash</span>
-                      <span className="text-[10px] text-sky-400/80 group-hover:text-sky-300 font-medium">Manage &rarr;</span>
+                      <span className="text-[10px] text-sky-400/80 group-hover:text-sky-300 font-medium transition-colors">Manage &rarr;</span>
                     </div>
                   </div>
-                </button>
+                </SpotlightCard>
 
                 {/* 2. Envelope Allocations */}
-                <button
-                  type="button"
+                <SpotlightCard
+                  as="button"
                   onClick={() => scrollToSection('envelope-budgeting')}
-                  className="glass-card glass-card-interactive rounded-2xl p-5 space-y-3 relative overflow-hidden text-left w-full cursor-pointer group active:scale-[0.98] transition-all"
+                  spotlightColor="rgba(129, 140, 248, 0.18)"
+                  className="space-y-3 relative overflow-hidden group cursor-pointer"
                   title="Scroll to Envelope Budgeting"
                 >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-indigo-400/80 group-hover:bg-indigo-400 transition-colors" />
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider group-hover:text-indigo-300 transition">
+                    <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider group-hover:text-indigo-300 transition-colors">
                       2. Envelope Allocations
                     </span>
-                    <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 group-hover:bg-indigo-500/20 group-hover:scale-105 transition">
+                    <div className="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 group-hover:bg-indigo-500/20 group-hover:scale-105 transition-all">
                       <Mail className="w-5 h-5" />
                     </div>
                   </div>
@@ -554,26 +559,28 @@ export const App: React.FC = () => {
                     </div>
                     <div className="text-xs text-neutral-400 mt-1 flex items-center justify-between">
                       <span>Allocated for Current Month Spending</span>
-                      <span className="text-[10px] text-indigo-400/80 group-hover:text-indigo-300 font-medium">Manage &rarr;</span>
+                      <span className="text-[10px] text-indigo-400/80 group-hover:text-indigo-300 font-medium transition-colors">Manage &rarr;</span>
                     </div>
                   </div>
-                </button>
+                </SpotlightCard>
 
                 {/* 3. Savings & Fixed Deposits */}
-                <button
-                  type="button"
+                <SpotlightCard
+                  as="button"
                   onClick={() => {
                     setLiabilitiesActiveTab('fds');
                     scrollToSection('liabilities-and-assets');
                   }}
-                  className="glass-card glass-card-interactive rounded-2xl p-5 space-y-3 relative overflow-hidden text-left w-full cursor-pointer group active:scale-[0.98] transition-all"
+                  spotlightColor="rgba(251, 191, 36, 0.18)"
+                  className="space-y-3 relative overflow-hidden group cursor-pointer"
                   title="Scroll to Fixed Deposits & Savings"
                 >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-amber-400/80 group-hover:bg-amber-400 transition-colors" />
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider group-hover:text-amber-300 transition">
+                    <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider group-hover:text-amber-300 transition-colors">
                       3. Savings & FDs
                     </span>
-                    <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 group-hover:bg-amber-500/20 group-hover:scale-105 transition">
+                    <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 group-hover:bg-amber-500/20 group-hover:scale-105 transition-all">
                       <PiggyBank className="w-5 h-5" />
                     </div>
                   </div>
@@ -583,26 +590,28 @@ export const App: React.FC = () => {
                     </div>
                     <div className="text-xs text-neutral-400 mt-1 flex items-center justify-between">
                       <span>Fixed Deposits & Term Reserves</span>
-                      <span className="text-[10px] text-amber-400/80 group-hover:text-amber-300 font-medium">Manage &rarr;</span>
+                      <span className="text-[10px] text-amber-400/80 group-hover:text-amber-300 font-medium transition-colors">Manage &rarr;</span>
                     </div>
                   </div>
-                </button>
+                </SpotlightCard>
 
                 {/* 4. Credit Card Liabilities */}
-                <button
-                  type="button"
+                <SpotlightCard
+                  as="button"
                   onClick={() => {
                     setLiabilitiesActiveTab('cards');
                     scrollToSection('liabilities-and-assets');
                   }}
-                  className="glass-card glass-card-interactive rounded-2xl p-5 space-y-3 relative overflow-hidden text-left w-full cursor-pointer group active:scale-[0.98] transition-all"
+                  spotlightColor="rgba(192, 132, 252, 0.18)"
+                  className="space-y-3 relative overflow-hidden group cursor-pointer"
                   title="Scroll to Credit Cards"
                 >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-purple-400/80 group-hover:bg-purple-400 transition-colors" />
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider group-hover:text-purple-300 transition">
+                    <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider group-hover:text-purple-300 transition-colors">
                       4. Card Liabilities
                     </span>
-                    <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400 group-hover:bg-purple-500/20 group-hover:scale-105 transition">
+                    <div className="p-2 rounded-xl bg-purple-500/10 text-purple-400 border border-purple-500/20 group-hover:bg-purple-500/20 group-hover:scale-105 transition-all">
                       <CreditCard className="w-5 h-5" />
                     </div>
                   </div>
@@ -625,26 +634,28 @@ export const App: React.FC = () => {
                     </div>
                     <div className="text-xs text-neutral-400 mt-1 flex items-center justify-between">
                       <span>Card balances & cycles</span>
-                      <span className="text-[10px] text-purple-400/80 group-hover:text-purple-300 font-medium">Manage &rarr;</span>
+                      <span className="text-[10px] text-purple-400/80 group-hover:text-purple-300 font-medium transition-colors">Manage &rarr;</span>
                     </div>
                   </div>
-                </button>
+                </SpotlightCard>
 
                 {/* 5. Actual Debts */}
-                <button
-                  type="button"
+                <SpotlightCard
+                  as="button"
                   onClick={() => {
                     setLiabilitiesActiveTab('debts');
                     scrollToSection('liabilities-and-assets');
                   }}
-                  className="glass-card glass-card-interactive rounded-2xl p-5 space-y-3 relative overflow-hidden text-left w-full cursor-pointer group active:scale-[0.98] transition-all"
+                  spotlightColor="rgba(251, 146, 60, 0.18)"
+                  className="space-y-3 relative overflow-hidden group cursor-pointer"
                   title="Scroll to Actual Debts"
                 >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-orange-400/80 group-hover:bg-orange-400 transition-colors" />
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider group-hover:text-orange-300 transition">
+                    <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider group-hover:text-orange-300 transition-colors">
                       5. Actual Debts
                     </span>
-                    <div className="p-2 rounded-xl bg-orange-500/10 text-orange-400 group-hover:bg-orange-500/20 group-hover:scale-105 transition">
+                    <div className="p-2 rounded-xl bg-orange-500/10 text-orange-400 border border-orange-500/20 group-hover:bg-orange-500/20 group-hover:scale-105 transition-all">
                       <CalendarClock className="w-5 h-5" />
                     </div>
                   </div>
@@ -654,31 +665,33 @@ export const App: React.FC = () => {
                     </div>
                     <div className="text-xs text-neutral-400 mt-1 flex items-center justify-between">
                       <span>External Loans & Debts Owed</span>
-                      <span className="text-[10px] text-orange-400/80 group-hover:text-orange-300 font-medium">Manage &rarr;</span>
+                      <span className="text-[10px] text-orange-400/80 group-hover:text-orange-300 font-medium transition-colors">Manage &rarr;</span>
                     </div>
                   </div>
-                </button>
+                </SpotlightCard>
 
                 {/* 6. Standing Monthly Costs (Recurring Subscriptions & Bills) */}
-                <button
-                  type="button"
+                <SpotlightCard
+                  as="button"
                   onClick={() => {
                     setLiabilitiesActiveTab('recurring');
                     scrollToSection('liabilities-and-assets');
                   }}
-                  className="glass-card glass-card-interactive rounded-2xl p-5 space-y-3 relative overflow-hidden text-left w-full cursor-pointer group active:scale-[0.98] transition-all"
+                  spotlightColor="rgba(16, 185, 129, 0.18)"
+                  className="space-y-3 relative overflow-hidden group cursor-pointer"
                   title="Scroll to Standing Monthly Costs"
                 >
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-400/80 group-hover:bg-emerald-400 transition-colors" />
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-medium text-neutral-400 uppercase tracking-wider group-hover:text-amber-300 transition">
+                    <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider group-hover:text-emerald-300 transition-colors">
                       6. Standing Monthly Costs
                     </span>
-                    <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 group-hover:bg-amber-500/20 group-hover:scale-105 transition">
+                    <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 group-hover:bg-emerald-500/20 group-hover:scale-105 transition-all">
                       <CalendarClock className="w-5 h-5" />
                     </div>
                   </div>
                   <div>
-                    <div className="text-xl xs:text-2xl font-bold font-mono tracking-tight text-amber-300 tabular-nums truncate">
+                    <div className="text-xl xs:text-2xl font-bold font-mono tracking-tight text-emerald-300 tabular-nums truncate">
                       {formatINR(effectiveStandingMonthlyCostsPaise)}
                       <span className="text-xs font-normal text-neutral-400 ml-1">/ mo</span>
                     </div>
@@ -693,10 +706,10 @@ export const App: React.FC = () => {
                           `${recurringRules.filter((r) => r.isActive).length} active subscriptions & bills`
                         )}
                       </span>
-                      <span className="text-[10px] text-amber-400/80 group-hover:text-amber-300 font-medium">Manage &rarr;</span>
+                      <span className="text-[10px] text-emerald-400/80 group-hover:text-emerald-300 font-medium transition-colors">Manage &rarr;</span>
                     </div>
                   </div>
-                </button>
+                </SpotlightCard>
               </div>
             </section>
 

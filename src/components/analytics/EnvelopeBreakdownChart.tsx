@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { PieChart, Sparkles } from 'lucide-react';
 import type { EnvelopeWithDetails } from '@/lib/api/envelopes';
 import { formatINR } from '@/lib/accounting/currency';
+import { SpotlightCard } from '@/components/common/SpotlightCard';
 
 interface EnvelopeBreakdownChartProps {
   envelopes: EnvelopeWithDetails[];
@@ -102,14 +103,17 @@ export const EnvelopeBreakdownChart: React.FC<EnvelopeBreakdownChartProps> = ({ 
   }, [segments]);
 
   return (
-    <div className="glass-card rounded-2xl border border-white/10 p-5 space-y-5 max-w-full overflow-hidden">
+    <SpotlightCard
+      spotlightColor="rgba(129, 140, 248, 0.14)"
+      className="p-5 sm:p-6 space-y-5 max-w-full overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300"
+    >
       <div className="flex items-center justify-between">
         <div className="space-y-0.5">
           <div className="flex items-center space-x-2">
-            <div className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-400">
+            <div className="p-1.5 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
               <PieChart className="w-4 h-4" />
             </div>
-            <h4 className="text-sm font-semibold text-white">Envelope Spending Distribution</h4>
+            <h4 className="text-sm font-semibold text-white tracking-tight">Envelope Spending Distribution</h4>
           </div>
           <p className="text-xs text-neutral-400">
             {isShowingAllocated
@@ -118,7 +122,7 @@ export const EnvelopeBreakdownChart: React.FC<EnvelopeBreakdownChartProps> = ({ 
           </p>
         </div>
 
-        <span className="text-[10px] px-2 py-0.5 rounded-full bg-neutral-800 text-neutral-300 border border-white/5 font-mono">
+        <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-neutral-900 text-neutral-300 border border-white/10 font-mono">
           Total: {formatINR(totalPaise)}
         </span>
       </div>
@@ -138,7 +142,7 @@ export const EnvelopeBreakdownChart: React.FC<EnvelopeBreakdownChartProps> = ({ 
                 cy="80"
                 r="64"
                 fill="none"
-                stroke="#1f2937"
+                stroke="#18181b"
                 strokeWidth="18"
               />
               {donutPaths.map((slice) => (
@@ -166,9 +170,9 @@ export const EnvelopeBreakdownChart: React.FC<EnvelopeBreakdownChartProps> = ({ 
             {segments.map((seg) => (
               <div
                 key={seg.id}
-                className="flex items-center justify-between p-2 rounded-xl bg-neutral-900/40 hover:bg-neutral-900/80 border border-white/5 text-xs transition"
+                className="flex items-center justify-between p-2.5 rounded-xl bg-[#0b0c0e] hover:bg-neutral-900 border border-white/5 hover:border-white/15 text-xs transition-all shadow-sm"
               >
-                <div className="flex items-center space-x-2 truncate">
+                <div className="flex items-center space-x-2.5 truncate">
                   <span
                     className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                     style={{ backgroundColor: seg.color }}
@@ -177,13 +181,13 @@ export const EnvelopeBreakdownChart: React.FC<EnvelopeBreakdownChartProps> = ({ 
                 </div>
                 <div className="flex items-center space-x-3 flex-shrink-0 font-mono text-[11px]">
                   <span className="text-neutral-400 font-semibold">{seg.percent.toFixed(1)}%</span>
-                  <span className="text-white font-medium">{formatINR(seg.amountPaise)}</span>
+                  <span className="text-white font-medium tabular-nums">{formatINR(seg.amountPaise)}</span>
                 </div>
               </div>
             ))}
           </div>
         </div>
       )}
-    </div>
+    </SpotlightCard>
   );
 };

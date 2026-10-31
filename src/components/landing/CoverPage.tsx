@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
   Wallet,
   Mail,
@@ -23,64 +23,13 @@ import {
   ArrowUpRight,
 } from 'lucide-react';
 import { formatINR } from '@/lib/accounting/currency';
+import { SpotlightCard } from '@/components/common/SpotlightCard';
 
 interface CoverPageProps {
   onOpenAuthModal: () => void;
   onOpenPrivacy?: () => void;
   onOpenTerms?: () => void;
 }
-
-/**
- * Cult UI Spotlight Card
- * Tracks mouse position and renders a smooth radial ambient illumination across the card border and surface.
- * Gracefully degrades on touch viewports without layout shifts.
- */
-interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
-  children: React.ReactNode;
-  spotlightColor?: string;
-  className?: string;
-}
-
-const SpotlightCard: React.FC<SpotlightCardProps> = ({
-  children,
-  spotlightColor = 'rgba(56, 189, 248, 0.15)',
-  className = '',
-  ...props
-}) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [coords, setCoords] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  }, []);
-
-  const handleMouseEnter = useCallback(() => setIsHovered(true), []);
-  const handleMouseLeave = useCallback(() => setIsHovered(false), []);
-
-  return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      className={`relative rounded-2xl border border-white/10 bg-[#0f1011] p-5 sm:p-6 transition-all duration-300 hover:border-white/20 shadow-xl overflow-hidden group ${className}`}
-      {...props}
-    >
-      {/* Radial Spotlight ambient lighting */}
-      <div
-        className="pointer-events-none absolute -inset-px transition-opacity duration-300 -z-0"
-        style={{
-          opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(450px circle at ${coords.x}px ${coords.y}px, ${spotlightColor}, transparent 65%)`,
-        }}
-      />
-      <div className="relative z-10">{children}</div>
-    </div>
-  );
-};
 
 export const CoverPage: React.FC<CoverPageProps> = ({
   onOpenAuthModal,
