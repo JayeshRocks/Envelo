@@ -73,13 +73,14 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
           </p>
         </div>
 
-        <div className="flex flex-col xs:flex-row flex-wrap items-stretch xs:items-center gap-2">
+        {/* Controls Toolbar: Period, Search, Filter pills, and Record button */}
+        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
           {/* Period Selector */}
-          <div className="relative flex items-center flex-1 xs:flex-initial">
+          <div className="relative flex items-center">
             <select
               value={periodFilter}
               onChange={(e) => setPeriodFilter(e.target.value as 'all' | 'this_month' | 'last_month')}
-              className="w-full xs:w-auto px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[38px] rounded-xl bg-neutral-900 border border-white/10 text-xs sm:text-sm text-neutral-300 focus:ring-1 focus:ring-sky-500 cursor-pointer"
+              className="px-3 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[38px] rounded-xl bg-neutral-900 border border-white/10 text-xs sm:text-sm text-neutral-300 focus:ring-1 focus:ring-sky-500 cursor-pointer"
             >
               <option value="all">All Dates</option>
               <option value="this_month">This Month</option>
@@ -88,14 +89,14 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
           </div>
 
           {/* Search Input */}
-          <div className="relative flex-1 xs:flex-initial">
+          <div className="relative flex-1 sm:flex-initial min-w-[130px] max-w-xs">
             <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Search payee..."
-              className="w-full pl-8 pr-7 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[38px] rounded-xl glass-input text-base sm:text-sm text-white placeholder-neutral-500 xs:w-36 sm:w-48"
+              className="w-full pl-8 pr-7 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[38px] rounded-xl glass-input text-base sm:text-sm text-white placeholder-neutral-500 sm:w-44"
             />
             {searchQuery && (
               <button
@@ -110,8 +111,8 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
             )}
           </div>
 
-          {/* Type Filter Pills — Full width 4-col segmented bar on mobile, flex on desktop (No horizontal scroll) */}
-          <div className="grid grid-cols-4 sm:flex items-center p-1 rounded-xl bg-neutral-900 border border-white/10 text-xs sm:text-sm font-medium w-full sm:w-auto">
+          {/* Type Filter Pills */}
+          <div className="flex items-center p-1 rounded-xl bg-neutral-900 border border-white/10 text-xs sm:text-sm font-medium">
             {[
               { id: 'all', label: 'All' },
               { id: 'expense', label: 'Expenses' },
@@ -121,7 +122,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
               <button
                 key={tab.id}
                 onClick={() => onTypeFilterChange(tab.id)}
-                className={`px-2 sm:px-3 py-2 sm:py-1.5 min-h-[40px] sm:min-h-[32px] rounded-lg transition-all duration-200 active:scale-95 text-center flex items-center justify-center ${
+                className={`px-2.5 sm:px-3 py-1.5 min-h-[36px] sm:min-h-[32px] rounded-lg transition-all duration-200 active:scale-95 text-center flex items-center justify-center ${
                   typeFilter === tab.id
                     ? 'bg-neutral-800 text-white shadow-sm font-semibold'
                     : 'text-neutral-400 hover:text-neutral-200'
@@ -132,16 +133,14 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
             ))}
           </div>
 
-          {/* Desktop Record button */}
-          {isDesktop && (
-            <button
-              onClick={onRecordTransactionClick}
-              className="flex items-center space-x-1 px-3 py-1.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-white text-xs font-medium transition shadow-sm active:scale-95 flex-shrink-0"
-            >
-              <Plus className="w-3.5 h-3.5" />
-              <span>Record</span>
-            </button>
-          )}
+          {/* Record button — refined, sleek, never stretches to 100% width */}
+          <button
+            onClick={onRecordTransactionClick}
+            className="inline-flex items-center justify-center space-x-1.5 px-3.5 py-2 sm:py-1.5 min-h-[44px] sm:min-h-[38px] rounded-xl bg-sky-500 hover:bg-sky-400 text-neutral-950 font-bold text-xs sm:text-sm transition-all shadow-sm active:scale-95 flex-shrink-0 cursor-pointer"
+          >
+            <Plus className="w-4 h-4 stroke-[2.5]" />
+            <span>Record</span>
+          </button>
         </div>
       </div>
 
@@ -304,16 +303,16 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
       {/* Desktop Table Surface (Shown only on Desktop-class devices) */}
       {isDesktop && (
         <div className="bg-[#0f1011] rounded-2xl border border-white/10 overflow-hidden shadow-xl">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
+          <div className="w-full">
+            <table className="table-fixed w-full text-left text-xs">
               <thead className="bg-[#0b0c0e] border-b border-white/10 text-[11px] font-semibold text-neutral-400 uppercase tracking-wider">
                 <tr>
-                  <th className="py-3 px-4">Date</th>
-                  <th className="py-3 px-4">Description / Payee</th>
-                  <th className="py-3 px-4">Type</th>
-                  <th className="py-3 px-4">Envelope / Account</th>
-                  <th className="py-3 px-4 text-right">Amount</th>
-                  <th className="py-3 px-4 text-center">Actions</th>
+                  <th className="py-3 px-4 w-[13%]">Date</th>
+                  <th className="py-3 px-4 w-[32%]">Description / Payee</th>
+                  <th className="py-3 px-4 w-[13%]">Type</th>
+                  <th className="py-3 px-4 w-[22%]">Envelope / Account</th>
+                  <th className="py-3 px-4 text-right w-[14%]">Amount</th>
+                  <th className="py-3 px-4 text-center w-[6%] min-w-[50px]">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5 text-neutral-300">
@@ -354,18 +353,18 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
                     return (
                       <tr key={tx.id} className="hover:bg-white/[0.02] transition">
                         {/* Date */}
-                        <td className="py-3.5 px-4 font-mono text-[11px] text-neutral-400 whitespace-nowrap">
+                        <td className="py-3.5 px-4 font-mono text-[11px] text-neutral-400 truncate">
                           {tx.transactionDate}
                         </td>
 
                         {/* Description */}
-                        <td className="py-3.5 px-4 font-medium text-white">
-                          <div className="max-w-xs truncate">{tx.description}</div>
+                        <td className="py-3.5 px-4 font-medium text-white truncate">
+                          <div className="truncate">{tx.description}</div>
                           {tx.notes && <div className="text-[11px] text-neutral-500 truncate">{tx.notes}</div>}
                         </td>
 
                         {/* Type */}
-                        <td className="py-3.5 px-4 whitespace-nowrap">
+                        <td className="py-3.5 px-4 truncate">
                           {isExpense && (
                             <span className="inline-flex items-center space-x-1 px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20 text-[10px] font-medium">
                               <ArrowDownLeft className="w-2.5 h-2.5" />
@@ -387,15 +386,15 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
                         </td>
 
                         {/* Envelope & Account */}
-                        <td className="py-3.5 px-4 whitespace-nowrap">
-                          <div className="flex items-center space-x-1.5">
+                        <td className="py-3.5 px-4 truncate">
+                          <div className="flex flex-wrap items-center gap-1.5 min-w-0">
                             {envelopeEntry?.envelopeName && (
-                              <span className="px-2 py-0.5 rounded-md bg-neutral-800 text-sky-400 border border-white/5 text-[10px]">
+                              <span className="px-2 py-0.5 rounded-md bg-neutral-800 text-sky-400 border border-white/5 text-[10px] max-w-[120px] truncate">
                                 {envelopeEntry.envelopeName}
                               </span>
                             )}
                             {accountEntry?.accountName && (
-                              <span className="px-2 py-0.5 rounded-md bg-neutral-800/60 text-neutral-400 border border-white/5 text-[10px]">
+                              <span className="px-2 py-0.5 rounded-md bg-neutral-800/60 text-neutral-400 border border-white/5 text-[10px] max-w-[120px] truncate">
                                 {accountEntry.accountName}
                               </span>
                             )}
@@ -404,7 +403,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
 
                         {/* Amount */}
                         <td
-                          className={`py-3.5 px-4 text-right font-mono font-bold whitespace-nowrap tabular-nums ${
+                          className={`py-3.5 px-4 text-right font-mono font-bold truncate tabular-nums ${
                             isIncome
                               ? 'text-emerald-400'
                               : isExpense

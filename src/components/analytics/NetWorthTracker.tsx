@@ -42,15 +42,6 @@ export const NetWorthTracker: React.FC<NetWorthTrackerProps> = ({
       spotlightColor={isSolvent ? 'rgba(16, 185, 129, 0.16)' : 'rgba(244, 63, 94, 0.16)'}
       className="p-5 sm:p-6 space-y-5 border border-white/10 hover:border-white/20 transition-all duration-300 relative overflow-hidden"
     >
-      {/* Top accent highlight */}
-      <div
-        className={`absolute top-0 left-0 right-0 h-1 ${
-          isSolvent
-            ? 'bg-gradient-to-r from-emerald-500 via-teal-400 to-sky-500'
-            : 'bg-gradient-to-r from-rose-500 via-red-500 to-amber-500'
-        }`}
-      />
-
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="space-y-0.5">
           <div className="flex items-center space-x-2">

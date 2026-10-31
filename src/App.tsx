@@ -516,7 +516,6 @@ export const App: React.FC = () => {
                   className="space-y-3 relative overflow-hidden group cursor-pointer"
                   title="Manage Liquid Accounts & Cash"
                 >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-sky-400/80 group-hover:bg-sky-400 transition-colors" />
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider group-hover:text-sky-300 transition-colors">
                       1. Liquid Funds
@@ -544,7 +543,6 @@ export const App: React.FC = () => {
                   className="space-y-3 relative overflow-hidden group cursor-pointer"
                   title="Scroll to Envelope Budgeting"
                 >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-indigo-400/80 group-hover:bg-indigo-400 transition-colors" />
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider group-hover:text-indigo-300 transition-colors">
                       2. Envelope Allocations
@@ -575,7 +573,6 @@ export const App: React.FC = () => {
                   className="space-y-3 relative overflow-hidden group cursor-pointer"
                   title="Scroll to Fixed Deposits & Savings"
                 >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-amber-400/80 group-hover:bg-amber-400 transition-colors" />
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider group-hover:text-amber-300 transition-colors">
                       3. Savings & FDs
@@ -606,7 +603,6 @@ export const App: React.FC = () => {
                   className="space-y-3 relative overflow-hidden group cursor-pointer"
                   title="Scroll to Credit Cards"
                 >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-purple-400/80 group-hover:bg-purple-400 transition-colors" />
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider group-hover:text-purple-300 transition-colors">
                       4. Card Liabilities
@@ -650,7 +646,6 @@ export const App: React.FC = () => {
                   className="space-y-3 relative overflow-hidden group cursor-pointer"
                   title="Scroll to Actual Debts"
                 >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-orange-400/80 group-hover:bg-orange-400 transition-colors" />
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider group-hover:text-orange-300 transition-colors">
                       5. Actual Debts
@@ -681,7 +676,6 @@ export const App: React.FC = () => {
                   className="space-y-3 relative overflow-hidden group cursor-pointer"
                   title="Scroll to Standing Monthly Costs"
                 >
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-emerald-400/80 group-hover:bg-emerald-400 transition-colors" />
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-semibold text-neutral-400 uppercase tracking-wider group-hover:text-emerald-300 transition-colors">
                       6. Standing Monthly Costs

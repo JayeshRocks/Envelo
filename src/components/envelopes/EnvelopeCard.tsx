@@ -83,12 +83,6 @@ export const EnvelopeCard: React.FC<EnvelopeCardProps> = ({
       spotlightColor={`${categoryColor}24`}
       className="space-y-4 relative overflow-hidden group p-5 border border-white/10 hover:border-white/20 transition-all duration-300"
     >
-      {/* Top subtle glow line matching category color */}
-      <div
-        className="absolute top-0 left-0 right-0 h-1 opacity-80 group-hover:opacity-100 transition-opacity"
-        style={{ backgroundColor: categoryColor }}
-      />
-
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2.5">
@@ -118,25 +112,25 @@ export const EnvelopeCard: React.FC<EnvelopeCardProps> = ({
         </div>
 
         {/* Quick action buttons */}
-        <div className="flex items-center space-x-1.5 opacity-100 sm:opacity-85 sm:group-hover:opacity-100 transition-opacity">
+        <div className="flex items-center space-x-1 opacity-100 sm:opacity-85 sm:group-hover:opacity-100 transition-opacity">
           <button
             onClick={onEdit}
             title="Edit Envelope Details"
-            className="p-2.5 sm:p-1.5 rounded-lg bg-neutral-900/90 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-white/10 hover:border-white/20 transition-all duration-200 active:scale-90 min-h-[44px] min-w-[44px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center cursor-pointer shadow-sm"
+            className="p-2 sm:p-1.5 rounded-lg hover:bg-white/10 text-neutral-400 hover:text-white transition-all duration-200 active:scale-90 min-h-[44px] min-w-[44px] sm:min-h-[32px] sm:min-w-[32px] flex items-center justify-center cursor-pointer"
           >
             <Pencil className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={onTransfer}
             title="Transfer / Reallocate Funds"
-            className="p-2.5 sm:p-1.5 rounded-lg bg-neutral-900/90 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-white/10 hover:border-white/20 transition-all duration-200 active:scale-90 min-h-[44px] min-w-[44px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center cursor-pointer shadow-sm"
+            className="p-2 sm:p-1.5 rounded-lg hover:bg-white/10 text-neutral-400 hover:text-white transition-all duration-200 active:scale-90 min-h-[44px] min-w-[44px] sm:min-h-[32px] sm:min-w-[32px] flex items-center justify-center cursor-pointer"
           >
             <ArrowRightLeft className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={onAllocate}
             title="Set Monthly Budget"
-            className="p-2.5 sm:p-1.5 rounded-lg bg-neutral-900/90 hover:bg-neutral-800 text-neutral-400 hover:text-white border border-white/10 hover:border-white/20 transition-all duration-200 active:scale-90 min-h-[44px] min-w-[44px] sm:min-h-[36px] sm:min-w-[36px] flex items-center justify-center cursor-pointer shadow-sm"
+            className="p-2 sm:p-1.5 rounded-lg hover:bg-white/10 text-neutral-400 hover:text-white transition-all duration-200 active:scale-90 min-h-[44px] min-w-[44px] sm:min-h-[32px] sm:min-w-[32px] flex items-center justify-center cursor-pointer"
           >
             <PlusCircle className="w-3.5 h-3.5" />
           </button>
