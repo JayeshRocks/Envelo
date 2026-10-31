@@ -1,32 +1,34 @@
 ---
-name: Feature Request
-about: Suggest an idea or enhancement for Envello
+name: "💡 Feature Request"
+about: Propose a new capability, envelope policy, or financial workflow enhancement for Envello
 title: "[FEAT] "
-labels: enhancement
+labels: ["enhancement", "triage"]
 assignees: ''
 ---
 
 ### 💡 Feature Summary
-A clear and concise description of the proposed feature or enhancement.
+A clear and concise description of what you want to happen.
 
-### 🎯 Problem Statement / Motivation
-What problem does this feature solve? (e.g., "I'm always frustrated when...")
+### 🎯 Motivation & Problem Statement
+What financial problem or workflow bottleneck does this feature solve?
 
 ### 🏛️ Financial Pillar Alignment
 Which pillar(s) does this affect?
-- [ ] 1. Spendable Cash (Liquid bank accounts & cash)
-- [ ] 2. Envelope Allocations (Budgeted spending)
-- [ ] 3. Savings & Fixed Deposits (Locked assets)
-- [ ] 4. Credit Card Liabilities (Unsettled debt)
-- [ ] 5. Actual Debts (Lenders / counterparties)
-- [ ] 6. Monthly Targets (Planning goals)
-- [ ] Other (Auth, Security, Reporting, UX)
+- [ ] **1. Spendable Cash** (Checking, savings, liquid cash)
+- [ ] **2. Envelope Allocations** (Assigned spend categories)
+- [ ] **3. Savings & Fixed Deposits** (Locked term assets & reserves)
+- [ ] **4. Credit Card Liabilities** (Billing cycles & utilization)
+- [ ] **5. Actual Debts** (Counterparty lent/borrowed ledgers)
+- [ ] **6. Monthly Targets** (Planning & funding targets)
+- [ ] **Infrastructure / Auth / Security**
 
-### 📐 Proposed Solution & Accounting Mechanics
-Describe how this feature will work mathematically. Confirm that it adheres to integer paise math and zero-cost constraints.
+### 📐 Mathematical Mechanics & Invariants
+- Describe how funds move between accounts/envelopes.
+- Confirm it adheres to **integer paise** math (`₹1.00 = 100 paise`).
+- Confirm it satisfies the **₹0/month zero-cost** operating rule (no paid APIs, proprietary AI services, or cloud subscriptions).
 
 ### 🔄 Alternatives Considered
-A clear and concise description of any alternative solutions or features you've considered.
+What alternatives or workarounds have you considered?
 
 ### 📋 Additional Context
-Add any other context, mockups, or screenshots about the feature request here.
+Add any relevant mockups, workflows, or sketches.

@@ -335,3 +335,20 @@ BEGIN
 END;
 $$;
 ```
+
+---
+
+## 4. Chronological Migration Log
+
+| Migration | Purpose & Changes |
+| :--- | :--- |
+| `20261025000000_initial_schema.sql` | Core relational schema: `profiles`, `accounts`, `envelopes`, `transactions`, `transaction_entries`, `credit_cards`, `fixed_deposits`, `self_emis`, `actual_debts`, atomic transfer RPC, and initial RLS policies. |
+| `20261026000000_user_has_password.sql` | Adds user password state helper function. |
+| `20261026000001_remove_whitelist.sql` | Updates access gating logic. |
+| `20261026000002_profiles_insert_policy.sql` | Hardens user profile insertion RLS. |
+| `20261026000003_generalize_default_envelopes.sql` | Seeds streamlined default envelopes upon new profile creation. |
+| `20261027000000_delete_user_account.sql` | Introduces cascading account deletion RPC. |
+| `20261027000001_account_deletion_grace_period.sql` | Implements 30-day account closure grace period, restoration RPC, and automated purge sweeping. |
+| `20261029000000_rename_regular_to_spendable_and_trim_default_envelopes.sql` | Refines envelope taxonomy to match Spendable Cash pillar. |
+| `20261031000000_security_hardening.sql` | Security hardening: caller identity assertions (`auth.uid() = target_user_id`) in `purge_user_data`, `REVOKE EXECUTE FROM PUBLIC, anon` on sensitive RPCs, and string length check constraints across all tables. |
+

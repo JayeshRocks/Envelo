@@ -3,28 +3,29 @@
 ## Phase Overview
 
 ```mermaid
-gantt
-    title Envello Implementation Roadmap
-    dateFormat  YYYY-MM-DD
-    section Phase 0
-    Project Setup & Architecture   :done, p0, 2026-10-25, 1d
-    section Phase 1
-    Core Foundation & Database     :done, p1, 2026-10-25, 1d
-    section Phase 2
-    Auth & Private Beta Gating     :done, p2, 2026-10-25, 1d
-    section Phase 3
-    Accounting Engine & Envelopes  :done, p3, 2026-10-25, 1d
-    section Phase 4
-    Transactions & Reconciliation  :done, p4, 2026-10-25, 1d
-    section Phase 5
-    Cards, EMIs & Savings Assets   :done, p5, 2026-10-25, 1d
-    section Phase 6
-    Visualizations & Reports       :done, p6, 2026-10-25, 1d
-    section Phase 7
-    Private Beta Launch & Polish   :active, p7, 2026-10-26, 3d
-    section Version 2
-    AI Integration (Deferred)      :p8, 2027-01-01, 30d
+flowchart LR
+    P0["Phase 0: Architecture & Specs"] --> P1["Phase 1: Database & RLS"]
+    P1 --> P2["Phase 2: Auth & Beta Gating"]
+    P2 --> P3["Phase 3: Accounting & Envelopes"]
+    P3 --> P4["Phase 4: Transactions & Journal"]
+    P4 --> P5["Phase 5: Cards, Debts & FDs"]
+    P5 --> P6["Phase 6: Visualizations & Export"]
+    P6 --> P7["Phase 7: Security & UI Hardening"]
+    P7 -.-> V2["Version 2: AI Assistance (Deferred)"]
 ```
+
+| Phase | Focus Area | Status |
+| :--- | :--- | :--- |
+| **Phase 0** | Architecture, Invariant Rules & Specification Architecture | :white_check_mark: Completed |
+| **Phase 1** | PostgreSQL Schema, Constraints & RLS Policies | :white_check_mark: Completed |
+| **Phase 2** | Supabase Auth (PKCE, OAuth, Magic Link) & Allowlist Gating | :white_check_mark: Completed |
+| **Phase 3** | Pure Invariant Accounting Engine & Envelope Rollovers | :white_check_mark: Completed |
+| **Phase 4** | Double-Entry Transaction Ledger & Bank Reconciliations | :white_check_mark: Completed |
+| **Phase 5** | Credit Cards, Utilization Safety, Fixed Deposits & Self-EMIs | :white_check_mark: Completed |
+| **Phase 6** | Solvency Analytics, Net Worth Health & JSON Data Portability | :white_check_mark: Completed |
+| **Phase 7** | Full-Stack Security Hardening, Rate Limiting & UI Design Polish | :white_check_mark: Completed |
+| **Version 2** | AI-Assisted Categorization & Bank Alert Ingestion | :crystal_ball: Deferred to V2 |
+
 
 ---
 

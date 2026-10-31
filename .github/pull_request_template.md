@@ -1,32 +1,35 @@
-## 📝 Description
-Provide a clear and concise summary of the changes proposed in this Pull Request.
+## 📝 Summary of Changes
+Provide a clear, high-level summary of the motivation, changes, and user-facing impact of this Pull Request.
 
 Fixes #(issue)
 
 ---
 
-## 🏛️ Financial & Accounting Invariants
-- [ ] Uses integer paise / fixed-point math (`₹1.00 = 100 paise`). **No floating-point arithmetic.**
-- [ ] Preserves the 6-pillar balance taxonomy without conflating liquid assets and liabilities.
-- [ ] Multi-table financial operations are atomic (executed in database transactions or RPCs).
+## 🏛️ Financial Math & Accounting Invariants
+- [ ] **Integer Paise Arithmetic**: All financial calculations use integer paise (`₹1.00 = 100 paise`) or PostgreSQL `NUMERIC(12, 2)`. **Zero IEEE 754 floating-point additions or subtractions.**
+- [ ] **Six-Pillar Taxonomy**: Preserves clear separation between liquid cash, envelope allocations, locked savings, card debt, counterparty debts, and targets.
+- [ ] **Atomic Execution**: Multi-table state updates are executed atomically inside database transactions or secure PostgreSQL RPCs.
+- [ ] **Conservation of Value**: Sum of all debits equals sum of all credits in transfers and allocations.
 
 ---
 
-## 🔒 Security & Authorization Check
-- [ ] RLS policies enabled and verified for all touched tables/views.
-- [ ] `auth.uid() = user_id` enforced in database policies (no trust in client-sent user IDs).
-- [ ] No secrets, private API keys, or service role keys exposed in client bundles.
+## 🔒 Security, RLS & Identity Invariants
+- [ ] **Row Level Security (RLS)**: Enabled and verified with explicit least-privilege policies on all touched tables/views.
+- [ ] **Zero Trust Client IDs**: Ownership is strictly derived from `auth.uid()` in database policies (no client `user_id` parameters trusted).
+- [ ] **Secret Isolation**: No Supabase `service_role` keys, private tokens, or credentials exposed in frontend code or `VITE_*` env vars.
+- [ ] **Anti-XSS & Validation**: Untrusted user inputs validated via Zod schemas and sanitized before rendering.
 
 ---
 
-## 📱 Mobile & Tablet Ergonomics
-- [ ] Form inputs use `text-base sm:text-sm` (16px on mobile to prevent iOS Safari auto-zoom).
-- [ ] Minimum 44px touch targets on all interactive elements (`min-h-[44px]`).
+## 📱 Ergonomics & Mobile Design Standards
+- [ ] **Typography Scale**: Form inputs, selects, and textareas use `text-base sm:text-sm` (16px on mobile to prevent iOS Safari auto-zoom).
+- [ ] **Touch Targets**: 44px minimum touch targets (`min-h-[44px] min-w-[44px]`) on interactive buttons and controls.
+- [ ] **Modal Portals**: Popups and modal dialogs are rendered via `ModalPortal` (`createPortal(..., document.body)`) to escape stacking and backdrop clipping.
+- [ ] **Zero Horizontal Scrolling**: Tab strips, quick action pills, and tables use wrapping layouts or `table-fixed` layouts without forced horizontal scrolling.
 
 ---
 
-## ✅ Quality Checklist
+## ✅ Quality Gate
 - [ ] `npm run lint` (`tsc -b`) passes with 0 errors.
-- [ ] `npm run test` passes all accounting invariant tests.
-- [ ] `npm run build` succeeds without build warnings or bundle regressions.
-- [ ] Corresponding documentation or migration scripts in `supabase/migrations/` updated.
+- [ ] `npm test` passes 100% of accounting invariant and security test suites.
+- [ ] `npm run build` generates production bundle cleanly.

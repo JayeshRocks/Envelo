@@ -1,34 +1,34 @@
 ---
-name: Bug Report
-about: Create a report to help us improve accounting accuracy or fix an issue
+name: "🐛 Bug Report"
+about: Report a reproducible calculation bug, visual glitch, or unintended behavior in Envello
 title: "[BUG] "
-labels: bug
+labels: ["bug", "triage"]
 assignees: ''
 ---
 
-### 🐛 Describe the Bug
-A clear and concise description of what the bug is.
+### 📝 Summary
+A clear and concise summary of the issue.
 
 ### 🔢 Steps to Reproduce
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+1. Navigate to '...'
+2. Perform action '...'
+3. Observe outcome '...'
 
-### 💰 Accounting Impact (If applicable)
-- Expected balance / calculation (in paise / ₹):
-- Actual balance / calculation observed:
-- Did any float rounding occur? (Yes / No / Unsure):
+### 💰 Accounting Impact (If Applicable)
+- **Affected Financial Pillar**: [e.g., Spendable Cash, Envelope Allocations, Credit Cards, Savings/FDs, Actual Debts]
+- **Expected Calculation / Balance (in ₹ / paise)**: 
+- **Actual Calculation / Balance observed**: 
+- **Suspected Floating-Point Drift / Math Discrepancy?**: [Yes / No / Unsure]
 
-### 📸 Screenshots or Console Logs
-If applicable, add screenshots or console output to help explain your problem.
+### 📸 Screenshots or Video
+If applicable, attach screenshots or a screen recording highlighting the issue.
 
-### 💻 Device & Environment
-- **OS**: [e.g. macOS, Windows, iOS, Android]
-- **Browser**: [e.g. Chrome, Safari, Firefox]
-- **Viewport**: [e.g. Desktop, Tablet, Mobile (specify resolution)]
-- **App Version / Git Commit**:
+### 💻 Environment & Viewport
+- **Device**: [e.g. PC, iPhone 15 Pro, Samsung Galaxy Tab, iPad Pro]
+- **OS**: [e.g. Windows 11, macOS Sequoia, iOS 18, Android 15]
+- **Browser**: [e.g. Chrome 131, Safari 18, Firefox 133]
+- **Viewport Resolution**: [e.g. 1920x1080, 390x844 (Mobile), 820x1180 (Tablet)]
+- **Orientation**: [Portrait / Landscape]
 
 ### 📋 Additional Context
-Add any other context about the problem here.
+Add any other context, console errors, or network responses here.

@@ -2,24 +2,50 @@
 
 ## 🔒 Supported Versions
 
-We actively maintain and provide security patches for the following versions of Envello:
+We actively maintain and provide security patches for the following versions of **Envello**:
 
-| Version | Supported          |
-| :---    | :---               |
-| 0.1.x   | :white_check_mark: |
-| < 0.1.0 | :x:                |
+| Version | Status | Security Support |
+| :--- | :--- | :--- |
+| `0.1.x` (Current) | Active Production | :white_check_mark: Full Support |
+| `< 0.1.0` | Deprecated Beta | :x: End of Life |
 
 ---
 
-## 🛡️ Security Architecture & Principles
+## 🛡️ Security Architecture & Invariants
 
-Envello takes data confidentiality and financial accounting security seriously:
+Envello is built on the principle that financial confidentiality and accounting integrity are paramount. Our security model includes:
 
-1. **Strict Row Level Security (RLS)**: Row Level Security is enforced on 100% of tables in PostgreSQL. Users cannot read, write, update, or delete records belonging to any other user.
-2. **Zero Trust for Client-Supplied User IDs**: Ownership is strictly derived from `auth.uid()` inside PostgreSQL RPC functions and RLS policies. Client-supplied IDs in request bodies or query parameters are never trusted.
-3. **No Private Secrets in Frontend**: `service_role` keys and database administrator credentials are never shipped to the frontend or checked into version control.
-4. **Data Isolation**: Private beta gating prevents unauthorized Google OAuth accounts from accessing personal workspaces.
-5. **Account Deletion & Data Purge**: Users maintain full data sovereignty, including complete JSON data export, 30-day scheduled closure, and immediate database purge capabilities.
+### 1. Row Level Security (RLS) on 100% of Tables
+- Every PostgreSQL table enforces Row Level Security with strict least-privilege policies.
+- Users can never query, insert, modify, or delete financial records belonging to any other user.
+
+### 2. Zero-Trust Client User IDs & Caller Identity Assertions
+- Ownership is strictly derived from `auth.uid()` directly inside PostgreSQL policies and `SECURITY DEFINER` functions.
+- All stored procedures explicitly verify caller identity:
+  ```sql
+  IF target_user_id IS NULL OR (target_user_id != auth.uid() AND auth.role() != 'service_role') THEN
+    RAISE EXCEPTION 'Unauthorized: Caller identity does not match target account';
+  END IF;
+  ```
+- Public and anonymous execution privileges are revoked by default across sensitive functions.
+
+### 3. Client Secret Isolation
+- Supabase `service_role` keys and database administrator credentials are never shipped to client code or committed to version control.
+- Vite build configurations restrict client environment exposure strictly to `VITE_*` variables, verified by automated build scans.
+
+### 4. Robust Auth, PKCE & Rate Limiting
+- OAuth exchanges mandate PKCE flow (`flowType: 'pkce'`).
+- Local client-side rate limiters defend sensitive authentication forms against brute-force attacks with exponential backoff cooldowns.
+- Password policies require a minimum of 8 characters with mixed uppercase, lowercase, and numeric complexity.
+
+### 5. Input Boundary Sanitization & Anti-XSS
+- All user-supplied descriptions, notes, and strings are validated through strict Zod schemas with character length bounds to prevent resource exhaustion.
+- Anti-XSS sanitization strips dangerous HTML tags and prevents script injection across all transaction entries and envelope labels.
+
+### 6. User Data Sovereignty & 30-Day Closure Lifecycle
+- **Complete Portability**: 1-click JSON ledger export at any time.
+- **30-Day Grace Period**: Scheduled account closure grants a 30-day window with 1-click restoration upon signing in.
+- **Immediate Data Wipe**: An optional instant wipe path executes a cascading permanent purge upon explicit typed email verification.
 
 ---
 
@@ -27,17 +53,21 @@ Envello takes data confidentiality and financial accounting security seriously:
 
 If you discover a security vulnerability or suspect an authorization bypass in Envello, please do **NOT** open a public GitHub issue.
 
-Instead, please disclose it responsibly by contacting the maintainer directly:
+Please disclose findings responsibly by contacting the maintainer directly:
 
-- **Security Contact**: Jayesh Yadav
+- **Security Lead**: Jayesh Yadav
 - **Email**: [yadavjayesh2008@gmail.com](mailto:yadavjayesh2008@gmail.com)
-- **Response Window**: We acknowledge security reports within 48 hours and aim to provide a mitigation or patch within 7 days.
+- **Subject**: `[SECURITY VULNERABILITY] Envello - <Brief Summary>`
+- **Response Timeline**: 
+  - **Acknowledgment**: Within 48 hours.
+  - **Triage & Assessment**: Within 72 hours.
+  - **Patch Release & Advisory**: Within 7 days.
 
 ### What to Include in Your Report
-To help us triage and resolve the issue quickly, please include:
-- A clear description of the vulnerability.
-- Step-by-step reproduction instructions or a minimal proof of concept.
-- The potential impact (e.g., unauthorized data access, RLS bypass, calculation discrepancy).
-- Any proposed remediation if available.
+To facilitate fast triage and reproduction:
+1. Clear description of the vulnerability and its potential impact.
+2. Step-by-step reproduction instructions or a minimal proof-of-concept.
+3. Affected components, database tables, or endpoints.
+4. Any proposed fix or remediation (if available).
 
-We appreciate your efforts to responsibly disclose findings and protect user financial data!
+We are deeply grateful to researchers who help keep personal financial data safe through responsible disclosure.
